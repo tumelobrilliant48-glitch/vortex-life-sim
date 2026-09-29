@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace VortexLifeSim.Core
@@ -9,6 +8,10 @@ namespace VortexLifeSim.Core
 
         public PlayerStats playerStats;
         public TimeCycle timeCycle;
+        public GameObject playerObject;
+        public PlayerNeedsController playerNeedsController;
+        public Simulation.JobSystem jobSystem;
+        public Simulation.EconomyManager economyManager;
 
         private void Awake()
         {
@@ -35,6 +38,21 @@ namespace VortexLifeSim.Core
             {
                 timeCycle = FindObjectOfType<TimeCycle>();
             }
+
+            if (playerNeedsController == null)
+            {
+                playerNeedsController = FindObjectOfType<PlayerNeedsController>();
+            }
+
+            if (jobSystem == null)
+            {
+                jobSystem = FindObjectOfType<Simulation.JobSystem>();
+            }
+
+            if (economyManager == null)
+            {
+                economyManager = FindObjectOfType<Simulation.EconomyManager>();
+            }
         }
 
         private void Update()
@@ -43,27 +61,6 @@ namespace VortexLifeSim.Core
             {
                 timeCycle.Tick(Time.deltaTime);
             }
-        }
-    }
-
-    [Serializable]
-    public class PlayerStats
-    {
-        public float hunger = 100f;
-        public float thirst = 100f;
-        public float health = 100f;
-        public float hygiene = 100f;
-        public float happiness = 100f;
-        public float fitness = 50f;
-        public float energy = 100f;
-        public int money = 0;
-        public int age = 18;
-
-        public void ApplyDecay(float hungerLoss, float thirstLoss, float hygieneLoss)
-        {
-            hunger = Mathf.Clamp(hunger - hungerLoss, 0f, 100f);
-            thirst = Mathf.Clamp(thirst - thirstLoss, 0f, 100f);
-            hygiene = Mathf.Clamp(hygiene - hygieneLoss, 0f, 100f);
         }
     }
 }

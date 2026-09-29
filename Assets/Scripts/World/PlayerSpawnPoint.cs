@@ -8,12 +8,9 @@ namespace VortexLifeSim.World
 
         private void Awake()
         {
-            if (GameManager.Instance != null)
+            if (GameManager.Instance != null && GameManager.Instance.playerObject != null)
             {
-                if (GameManager.Instance.playerObject != null)
-                {
-                    GameManager.Instance.playerObject.transform.position = spawnPosition;
-                }
+                GameManager.Instance.playerObject.transform.position = spawnPosition;
             }
         }
     }

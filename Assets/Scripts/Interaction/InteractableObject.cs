@@ -38,7 +38,7 @@ namespace VortexLifeSim.Interaction
             }
         }
 
-        public void Interact()
+        public virtual void Interact()
         {
             Debug.Log("Interacted with " + objectName + " successfully.");
         }
