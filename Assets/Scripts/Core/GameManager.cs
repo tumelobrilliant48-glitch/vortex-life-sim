@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using VortexLifeSim.World;
 
 namespace VortexLifeSim.Core
 {
@@ -34,6 +35,13 @@ namespace VortexLifeSim.Core
             if (timeCycle == null)
             {
                 timeCycle = FindObjectOfType<TimeCycle>();
+            }
+
+            if (timeCycle == null)
+            {
+                GameObject timeObject = new GameObject("TimeCycle");
+                timeObject.transform.SetParent(transform);
+                timeCycle = timeObject.AddComponent<TimeCycle>();
             }
         }
 

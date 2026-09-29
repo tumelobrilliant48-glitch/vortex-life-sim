@@ -16,14 +16,12 @@ namespace VortexLifeSim.World
             GameObject root = new GameObject("VillageRoot");
             root.transform.SetParent(transform);
 
-            // ground
             GameObject ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
             ground.name = "VillageGround";
             ground.transform.SetParent(root.transform);
             ground.transform.localScale = new Vector3(6f, 1f, 6f);
             ground.transform.position = new Vector3(0f, 0f, 0f);
 
-            // roads
             GameObject road = GameObject.CreatePrimitive(PrimitiveType.Cube);
             road.name = "MainRoad";
             road.transform.SetParent(root.transform);
@@ -36,7 +34,6 @@ namespace VortexLifeSim.World
             crossRoad.transform.localScale = new Vector3(8f, 0.2f, 60f);
             crossRoad.transform.position = new Vector3(0f, 0.1f, 0f);
 
-            // buildings
             for (int i = 0; i < buildingCount; i++)
             {
                 GameObject building = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -52,16 +49,19 @@ namespace VortexLifeSim.World
 
                 building.transform.position = pos + new Vector3(0f, building.transform.localScale.y / 2f, 0f);
 
-                // each building gets a job marker
                 GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 marker.name = "Marker_" + i;
                 marker.transform.SetParent(building.transform);
                 marker.transform.localScale = new Vector3(0.5f, 0.2f, 0.5f);
                 marker.transform.position = new Vector3(0f, building.transform.localScale.y + 1.2f, 0f);
-                marker.GetComponent<Renderer>().material.color = Color.yellow;
+
+                Renderer renderer = marker.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.material.color = Color.yellow;
+                }
             }
 
-            // add a simple player spawn point
             GameObject spawnPoint = new GameObject("PlayerSpawnPoint");
             spawnPoint.transform.SetParent(root.transform);
             spawnPoint.transform.position = new Vector3(-5f, 1f, -5f);
@@ -70,22 +70,17 @@ namespace VortexLifeSim.World
         private void ClearExistingVillage()
         {
             Transform child = transform.Find("VillageRoot");
-            if (child != null)
+            if (child == null)
             {
-                DestroyImmediate(child.gameObject);
+                return;
             }
-        }
 
-        private void DestroyImmediate(GameObject go)
-        {
-            if (Application.isPlaying)
+            for (int i = child.childCount - 1; i >= 0; i--)
             {
-                Destroy(go);
+                DestroyImmediate(child.GetChild(i).gameObject);
             }
-            else
-            {
-                DestroyImmediate(go);
-            }
+
+            DestroyImmediate(child.gameObject);
         }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using VortexLifeSim.Core;
 
 namespace VortexLifeSim.Simulation
 {

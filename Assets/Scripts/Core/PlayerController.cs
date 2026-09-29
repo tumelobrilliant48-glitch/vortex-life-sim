@@ -17,6 +17,11 @@ namespace VortexLifeSim.Core
 
         private void Update()
         {
+            if (controller == null)
+            {
+                return;
+            }
+
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 

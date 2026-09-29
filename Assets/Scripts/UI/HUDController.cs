@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using VortexLifeSim.Core;
+using VortexLifeSim.World;
 
 namespace VortexLifeSim.UI
 {
@@ -31,7 +33,7 @@ namespace VortexLifeSim.UI
                 var time = GameManager.Instance.timeCycle;
                 if (timeText != null)
                 {
-                    timeText.text = "Day " + time.currentDay + " | " + time.currentHour + ":" + Mathf.FloorToInt(time.currentMinute).ToString("00");
+                    timeText.text = time.GetTimeLabel();
                 }
             }
         }

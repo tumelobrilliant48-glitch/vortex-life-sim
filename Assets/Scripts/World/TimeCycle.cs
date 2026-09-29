@@ -33,5 +33,10 @@ namespace VortexLifeSim.World
                 }
             }
         }
+
+        public string GetTimeLabel()
+        {
+            return string.Format("Day {0} | {1}:{2:00}", currentDay, currentHour, Mathf.FloorToInt(currentMinute));
+        }
     }
 }

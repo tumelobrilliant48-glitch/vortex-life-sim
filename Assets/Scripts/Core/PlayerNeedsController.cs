@@ -1,4 +1,5 @@
 using UnityEngine;
+using VortexLifeSim.Core;
 
 namespace VortexLifeSim.Core
 {
@@ -21,6 +22,11 @@ namespace VortexLifeSim.Core
 
         private void Update()
         {
+            if (GameManager.Instance != null && GameManager.Instance.playerStats != null)
+            {
+                stats = GameManager.Instance.playerStats;
+            }
+
             if (stats == null)
             {
                 return;
@@ -41,21 +47,41 @@ namespace VortexLifeSim.Core
 
         public void EatFood(float value)
         {
+            if (stats == null)
+            {
+                return;
+            }
+
             stats.hunger = Mathf.Clamp(stats.hunger + value, 0f, 100f);
         }
 
         public void DrinkWater(float value)
         {
+            if (stats == null)
+            {
+                return;
+            }
+
             stats.thirst = Mathf.Clamp(stats.thirst + value, 0f, 100f);
         }
 
         public void TakeShower(float value)
         {
+            if (stats == null)
+            {
+                return;
+            }
+
             stats.hygiene = Mathf.Clamp(stats.hygiene + value, 0f, 100f);
         }
 
         public void RecoverHealth(float value)
         {
+            if (stats == null)
+            {
+                return;
+            }
+
             stats.health = Mathf.Clamp(stats.health + value, 0f, 100f);
         }
     }
